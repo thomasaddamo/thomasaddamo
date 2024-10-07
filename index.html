@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Radio Maxwell</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"><i class="fas fa-broadcast-tower"></i> Radio Maxwell</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link animated fadeIn" href="#gestione"><i class="fas fa-cogs"></i> Gestione</a></li>
+                <li class="nav-item"><a class="nav-link animated fadeIn" href="#eventi"><i class="fas fa-calendar-alt"></i> Eventi</a></li>
+                <li class="nav-item"><a class="nav-link animated fadeIn" href="#impostazioni"><i class="fas fa-sliders-h"></i> Impostazioni</a></li>
+                <li class="nav-item"><a class="nav-link animated fadeIn" href="#loginModal" id="loginTrigger"><i class="fas fa-sign-in-alt"></i> Accedi</a></li>
+                <li class="nav-item" id="logoutItem" style="display: none;"><a class="nav-link animated fadeIn" href="#logoutModal" id="logoutTrigger"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center animated fadeIn">Benvenuto alla Gestione della Radio Maxwell</h1>
+        
+        <!-- Sezione Gestione -->
+        <section id="gestione" class="mt-5 section animated fadeIn">
+            <h2><i class="fas fa-tools"></i> Gestione</h2>
+            <p>Accedi ai file della Radio dalla cartella Google Drive:</p>
+            <a href="https://drive.google.com/drive/folders/1rvNEug6H86QXb7mHEymwdyCvs6agfAY1?dmr=1&ec=wgc-drive-globalnav-goto" class="btn btn-primary rounded-pill animated bounceIn" target="_blank">
+                <i class="fas fa-folder-open"></i> Apri la Cartella Drive
+            </a>
+        </section>
+
+        <!-- Sezione Eventi -->
+        <section id="eventi" class="mt-5 section animated fadeIn">
+            <h2><i class="fas fa-calendar"></i> Eventi</h2>
+            <form id="formEventi" class="mt-4 rounded shadow p-4" style="display: none;">
+                <div class="form-group">
+                    <label for="titoloEvento"><i class="fas fa-heading"></i> Titolo:</label>
+                    <input type="text" class="form-control rounded-pill" id="titoloEvento" placeholder="Inserisci il titolo dell'evento">
+                </div>
+                <div class="form-group">
+                    <label for="dataEvento"><i class="fas fa-calendar-day"></i> Data:</label>
+                    <input type="date" class="form-control rounded-pill" id="dataEvento">
+                </div>
+                <div class="form-group">
+                    <label for="luogoEvento"><i class="fas fa-map-marker-alt"></i> Luogo:</label>
+                    <input type="text" class="form-control rounded-pill" id="luogoEvento" placeholder="Inserisci il luogo dell'evento">
+                </div>
+                <div class="form-group">
+                    <label for="orarioEvento"><i class="fas fa-clock"></i> Orario:</label>
+                    <input type="time" class="form-control rounded-pill" id="orarioEvento">
+                </div>
+                <div class="form-group">
+                    <label for="descrizioneEvento"><i class="fas fa-align-left"></i> Descrizione:</label>
+                    <textarea class="form-control rounded" id="descrizioneEvento" rows="3" placeholder="Inserisci la descrizione dell'evento"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="partecipantiEvento"><i class="fas fa-users"></i> Partecipanti:</label>
+                    <input type="text" class="form-control rounded-pill" id="partecipantiEvento" placeholder="Inserisci i partecipanti">
+                </div>
+                <button type="submit" class="btn btn-success rounded-pill animated bounceIn">Crea Evento</button>
+            </form>
+
+            <div id="listaEventi" class="mt-5">
+                <h3><i class="fas fa-list"></i> Eventi Creati:</h3>
+                <ul id="elencoEventi" class="list-group"></ul>
+            </div>
+        </section>
+
+        <!-- Sezione Impostazioni -->
+        <section id="impostazioni" class="mt-5 section animated fadeIn">
+            <h2><i class="fas fa-sliders-h"></i> Impostazioni</h2>
+            <p>Cambia il tema della pagina:</p>
+            <button id="toggleTheme" class="btn btn-dark rounded-pill">Passa a Tema Chiaro</button>
+        </section>
+    </div>
+
+    <!-- Modale di Login -->
+    <div class="modal" tabindex="-1" role="dialog" id="loginModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Accedi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username"><i class="fas fa-user-circle"></i> Username:</label>
+                            <input type="text" class="form-control rounded-pill" id="username" placeholder="Inserisci il nome utente">
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><i class="fas fa-lock"></i> Password:</label>
+                            <input type="password" class="form-control rounded-pill" id="password" placeholder="Inserisci la password">
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill">Accedi</button>
+                        <div id="loginFeedback" class="text-danger mt-3" style="display: none;">Credenziali errate</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale di Logout -->
+    <div class="modal" tabindex="-1" role="dialog" id="logoutModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler effettuare il logout?</p>
+                    <button type="button" class="btn btn-danger rounded-pill" id="logoutConfirm">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
